@@ -12,7 +12,7 @@ defmodule Pipelinex.MixProject do
       deps: deps(),
       package: package(),
       source_url: "https://github.com/KamilLelonek/pipelinex",
-      homepage_url: "https://github.com/KamilLelonek/pipelinex"
+      homepage_url: "https://blog.lelonek.me/how-to-keep-piping-in-elixir-cc3552359238"
     ]
   end
 

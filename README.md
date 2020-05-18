@@ -1,6 +1,6 @@
 # pipelinex
 
-**TODO: Add description**
+A supporting code for: https://blog.lelonek.me/how-to-keep-piping-in-elixir-cc3552359238 article.
 
 ## Installation
 
