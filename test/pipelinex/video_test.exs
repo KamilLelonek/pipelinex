@@ -20,7 +20,7 @@ defmodule Pipelinex.VideoTest do
 
   describe "encode/1" do
     test "should serialize a Video" do
-      assert %{"title" => @title} =
+      assert %{"title" => @title, "ratings" => @ratings} =
                @params
                |> Video.new()
                |> Video.encode()

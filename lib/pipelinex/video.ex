@@ -4,6 +4,6 @@ defmodule Pipelinex.Video do
 
   def new(params), do: struct!(__MODULE__, params)
 
-  def encode(%__MODULE__{title: title}),
-    do: %{"title" => title}
+  def encode(%__MODULE__{title: title, ratings: ratings}),
+    do: %{"title" => title, "ratings" => ratings}
 end
