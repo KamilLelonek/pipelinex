@@ -4,6 +4,8 @@ defmodule PipelinexTest do
 
   require Pipelinex
 
+  alias Pipelinex.{Video, Rating}
+
   @text "Some random STRING."
 
   describe "~>" do
@@ -27,5 +29,34 @@ defmodule PipelinexTest do
     defp download(123), do: {:ok, "valid result"}
     defp download(_), do: {:error, "invalid API key"}
     defp parse({:ok, message}), do: %{message: message, downloaded_at: Time.utc_now()}
+  end
+
+  describe "serialize" do
+    @rating1 %Rating{author: "James Bond", comment: "Quite nice."}
+    @rating2 %Rating{author: "Sherlock Holmes", comment: "Pretty good."}
+    @ratings [@rating1, @rating2]
+    @video %Video{title: "Iron Man 3", ratings: @ratings}
+
+    test "should encode flat arguments" do
+      assert %{"title" => "Iron Man 3"} = Video.encode(@video)
+    end
+
+    test "should encode nested arguments" do
+      result =
+        @video
+        |> Video.encode()
+        |> case do
+          %{"ratings" => ratings} = video ->
+            %{video | "ratings" => Enum.map(ratings, &Rating.encode/1)}
+        end
+        |> Map.values()
+        |> List.flatten()
+
+      assert [
+               %{"author" => "James Bond", "comment" => "Quite nice."},
+               %{"author" => "Sherlock Holmes", "comment" => "Pretty good."},
+               "Iron Man 3"
+             ] = result
+    end
   end
 end
